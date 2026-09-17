@@ -10,66 +10,67 @@ export default function Loader({ onComplete }: LoaderProps) {
   const smileyRef = useRef<HTMLDivElement>(null)
   const drawInRef = useRef<HTMLSpanElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const onCompleteRef = useRef(onComplete)
-  onCompleteRef.current = onComplete
+  const ran = useRef(false)
 
   useEffect(() => {
+    if (ran.current) return
+    ran.current = true
+
     const dot = dotRef.current
     const smiley = smileyRef.current
     const drawIn = drawInRef.current
     const container = containerRef.current
     if (!dot || !smiley || !drawIn || !container) return
 
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) {
-      onCompleteRef.current()
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      onComplete()
       return
     }
 
-    // Phase 1: dot grows into smiley
-    animate(dot, {
-      scale: [0.2, 1],
-      opacity: [0, 1],
-      duration: 400,
-      easing: 'cubicBezier(0.16, 1, 0.3, 1)',
-      complete: () => {
-        // swap dot → smiley
-        dot.style.opacity = '0'
-        smiley.style.opacity = '1'
+    ;(async () => {
+      // Phase 1: dot scales in
+      await animate(dot, {
+        scale: [0.2, 1],
+        opacity: [0, 1],
+        duration: 400,
+        easing: 'cubicBezier(0.16, 1, 0.3, 1)',
+      }).finished
 
-        // Phase 2: smiley holds briefly then CRT blip-out
-        animate(smiley, {
-          scaleY: [1, 0.05, 0],
-          scaleX: [1, 1.4, 0],
-          opacity: [1, 1, 0],
-          duration: 350,
-          delay: 500,
-          easing: 'cubicBezier(0.7, 0, 0.84, 0)',
-          complete: () => {
-            // Phase 3: Borel draw-in
-            drawIn.style.opacity = '1'
-            const chars = drawIn.querySelectorAll<HTMLElement>('.char')
-            animate(chars, {
-              opacity: [0, 1],
-              translateY: ['0.3em', '0'],
-              duration: 600,
-              delay: stagger(60),
-              easing: 'cubicBezier(0.16, 1, 0.3, 1)',
-              complete: () => {
-                // Phase 4: fade out entire loader
-                animate(container, {
-                  opacity: [1, 0],
-                  duration: 500,
-                  delay: 300,
-                  easing: 'cubicBezier(0.7, 0, 0.84, 0)',
-                  complete: onCompleteRef.current,
-                })
-              },
-            })
-          },
-        })
-      },
-    })
+      // swap dot → smiley
+      dot.style.opacity = '0'
+      smiley.style.opacity = '1'
+
+      // Phase 2: hold then CRT blip-out
+      await animate(smiley, {
+        scaleY: [1, 0.05, 0],
+        scaleX: [1, 1.4, 0],
+        opacity: [1, 1, 0],
+        duration: 350,
+        delay: 500,
+        easing: 'cubicBezier(0.7, 0, 0.84, 0)',
+      }).finished
+
+      // Phase 3: Borel draw-in
+      drawIn.style.opacity = '1'
+      const chars = drawIn.querySelectorAll<HTMLElement>('.char')
+      await animate(chars, {
+        opacity: [0, 1],
+        translateY: ['0.3em', '0'],
+        duration: 600,
+        delay: stagger(60),
+        easing: 'cubicBezier(0.16, 1, 0.3, 1)',
+      }).finished
+
+      // Phase 4: fade out loader
+      await animate(container, {
+        opacity: [1, 0],
+        duration: 500,
+        delay: 300,
+        easing: 'cubicBezier(0.7, 0, 0.84, 0)',
+      }).finished
+
+      onComplete()
+    })()
   }, [])
 
   return (
@@ -84,10 +85,8 @@ export default function Loader({ onComplete }: LoaderProps) {
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 100,
-        gap: '2rem',
       }}
     >
-      {/* Dot */}
       <div
         ref={dotRef}
         style={{
@@ -96,10 +95,10 @@ export default function Loader({ onComplete }: LoaderProps) {
           borderRadius: '50%',
           backgroundColor: 'var(--primary)',
           position: 'absolute',
+          opacity: 0,
         }}
       />
 
-      {/* Smiley — hidden until dot phase completes */}
       <div
         ref={smileyRef}
         style={{
@@ -108,12 +107,12 @@ export default function Loader({ onComplete }: LoaderProps) {
           opacity: 0,
           position: 'absolute',
           userSelect: 'none',
+          color: 'var(--text)',
         }}
       >
         :)
       </div>
 
-      {/* Borel draw-in text */}
       <span
         ref={drawInRef}
         style={{
@@ -127,11 +126,7 @@ export default function Loader({ onComplete }: LoaderProps) {
         }}
       >
         {'hello.'.split('').map((char, i) => (
-          <span
-            key={i}
-            className="char"
-            style={{ display: 'inline-block', opacity: 0 }}
-          >
+          <span key={i} className="char" style={{ display: 'inline-block', opacity: 0 }}>
             {char === ' ' ? '\u00A0' : char}
           </span>
         ))}
