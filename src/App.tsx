@@ -5,11 +5,12 @@ import Loader from './components/Loader'
 import Hero from './components/Hero'
 import About from './components/About'
 import Experience from './components/Experience'
+import Experiences from './components/Experiences'
 import Skills from './components/Skills'
 import Contact from './components/Contact'
 import { usePaging } from './hooks/usePaging'
 
-const SECTIONS = ['hero', 'about', 'experience', 'skills', 'contact'] as const
+const SECTIONS = ['hero', 'about', 'rolepreferences', 'experiences', 'skills', 'contact'] as const
 
 export default function App() {
   const [loaderDone, setLoaderDone] = useState(false)
@@ -43,7 +44,8 @@ export default function App() {
           <EditorialGrid>
             {SECTIONS[current] === 'hero' && <Hero visible />}
             {SECTIONS[current] === 'about' && <About visible />}
-            {SECTIONS[current] === 'experience' && <Experience visible />}
+            {SECTIONS[current] === 'experiences' && <Experiences visible />}
+            {SECTIONS[current] === 'rolepreferences' && <Experience visible />}
             {SECTIONS[current] === 'skills' && <Skills visible />}
             {SECTIONS[current] === 'contact' && <Contact visible />}
           </EditorialGrid>

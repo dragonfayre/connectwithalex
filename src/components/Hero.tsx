@@ -77,12 +77,12 @@ export default function Hero({ visible }: HeroProps) {
           ref={nameRef}
           style={{
             fontFamily: 'var(--font-accent)',
-            fontSize: 'clamp(3rem, 8vw, 7rem)',
+            fontSize: 'clamp(4rem, 8vw, 7rem)',
             lineHeight: 1.0,
             letterSpacing: '-0.06em',
             fontWeight: 300,
             color: 'var(--text)',
-            marginBottom: '0.0rem',
+            marginBottom: '-1.6rem',
           }}
         >
           {splitChars(content.hero.name)}
@@ -92,7 +92,7 @@ export default function Hero({ visible }: HeroProps) {
           ref={roleRef}
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+            fontSize: 'clamp(2rem, 3vw, 2.5rem)',
             lineHeight: 1.2,
             letterSpacing: '-0.01em',
             fontWeight: 300,

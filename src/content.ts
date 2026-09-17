@@ -1,6 +1,7 @@
 export const content = {
   hero: {
     name: 'alexander liu',
+    shortName: 'alex liu',
     role: 'dragonfayre',
     location: 'UNSW Security Society - Conferences',
     email: 'alexl@unswsecurity.com',
@@ -9,10 +10,13 @@ export const content = {
   },
 
   about: {
-    bio: 'Nice to meet you, My name is Alex! I am currently in my first year of Bachelor of Cybersecurity, and Conferences Subcomittee for SecSoc 2026 :)',
+    bio: ['Nice to meet you, My name is Alex! ',
+    'I am currently completeing my first year in the Bachelor of Cybersecurity,',
+    ' and Conferences Subcomittee for SecSoc 2026 :)',
+    ],
   },
 
-  experience: [
+  rolePreferences: [
     {
       company: 'Diversity & Inclusion for all (+ being a Discord Mod)',
       role: 'GEDI Officer',
@@ -31,6 +35,45 @@ export const content = {
         'shi AHEM i mean stuff. I GOT YALL frrrr'
       ],
     },
+  ],
+
+  experiences: [
+    {
+      company: 'Security Society UNSW',
+      role: 'Conferences Subcomittee',
+      period: '2026',
+      outcomes: [
+        '[Placeholder — what you did or achieved here.]',
+      ],
+    },
+    {
+      company: 'School of Computer Science & Engineering',
+      role: [
+        'Casual Academic', 
+        ' - 1511 | 1911'
+        ],
+      period: '2026',
+      outcomes: [
+        '[Placeholder — what you did or achieved here.]',
+      ],
+    },
+    {
+      company: 'NBHS Programming Club',
+      role: 'Co-Founder & Mentor',
+      period: '2024-2025',
+      outcomes: [
+        '[Placeholder — what you did or achieved here.]',
+      ],
+    },
+    {
+      company: 'NBHS Prefects',
+      role: 'Student Liason',
+      period: '2024-2025',
+      outcomes: [
+        '[Placeholder — what you did or achieved here.]',
+      ],
+    },
+    
   ],
 
   skills: {

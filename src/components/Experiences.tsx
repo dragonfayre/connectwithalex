@@ -2,34 +2,22 @@ import { useEffect, useRef, useState } from 'react'
 import { animate } from 'animejs'
 import { content } from '../content'
 
-type RoleEntry = typeof content.rolePreferences[number]
-
-interface ExperienceProps {
-  visible: boolean
-}
-
-export default function Experience({ visible }: ExperienceProps) {
+export default function Experiences({ visible }: { visible: boolean }) {
   const [entryIndex, setEntryIndex] = useState(0)
   const [animKey, setAnimKey] = useState(0)
   const entryRef = useRef<HTMLDivElement>(null)
   const hasAnimated = useRef(false)
-  const entries = content.rolePreferences
+  const entries = content.experiences
 
-  // Animate in whenever animKey changes (covers both initial mount and navigation)
   useEffect(() => {
-    if (!visible && !hasAnimated.current) return
     if (!entryRef.current) return
-
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) {
       entryRef.current.style.opacity = '1'
       return
     }
-
-    // Always start from a clean state
     entryRef.current.style.opacity = '0'
     entryRef.current.style.transform = 'translateY(1.5rem)'
-
     animate(entryRef.current, {
       opacity: [0, 1],
       translateY: ['1.5rem', '0'],
@@ -47,9 +35,7 @@ export default function Experience({ visible }: ExperienceProps) {
   const goTo = (dir: 1 | -1) => {
     const next = entryIndex + dir
     if (next < 0 || next >= entries.length) return
-
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
     if (!prefersReduced && entryRef.current) {
       animate(entryRef.current, {
         opacity: [1, 0],
@@ -90,7 +76,7 @@ export default function Experience({ visible }: ExperienceProps) {
 
   return (
     <>
-      {/* Label + nav — meta column */}
+      {/* Label + nav — meta column, centered */}
       <div
         style={{
           gridColumn: 'meta-start / meta-end',
@@ -111,21 +97,18 @@ export default function Experience({ visible }: ExperienceProps) {
             writingMode: 'vertical-rl',
             transform: 'rotate(180deg)',
             letterSpacing: '0.08em',
+            alignSelf: 'flex-start',
           }}
         >
-          Role Preferences
+          Experiences
         </span>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
-          <button onClick={() => goTo(-1)} disabled={entryIndex === 0} style={btnStyle(entryIndex === 0)}>
-            ↑
-          </button>
+          <button onClick={() => goTo(-1)} disabled={entryIndex === 0} style={btnStyle(entryIndex === 0)}>↑</button>
           <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
             {entryIndex + 1}/{entries.length}
           </span>
-          <button onClick={() => goTo(1)} disabled={entryIndex === entries.length - 1} style={btnStyle(entryIndex === entries.length - 1)}>
-            ↓
-          </button>
+          <button onClick={() => goTo(1)} disabled={entryIndex === entries.length - 1} style={btnStyle(entryIndex === entries.length - 1)}>↓</button>
         </div>
       </div>
 
