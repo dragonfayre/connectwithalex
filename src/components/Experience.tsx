@@ -75,7 +75,7 @@ export default function Experience({ visible }: ExperienceProps) {
             letterSpacing: '0.08em',
           }}
         >
-          Experience
+          Role Preferences
         </span>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

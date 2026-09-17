@@ -76,13 +76,13 @@ export default function Hero({ visible }: HeroProps) {
         <h1
           ref={nameRef}
           style={{
-            fontFamily: 'var(--font-display)',
+            fontFamily: 'var(--font-accent)',
             fontSize: 'clamp(3rem, 8vw, 7rem)',
             lineHeight: 1.0,
-            letterSpacing: '-0.02em',
+            letterSpacing: '-0.06em',
             fontWeight: 300,
             color: 'var(--text)',
-            marginBottom: '0.5rem',
+            marginBottom: '0.0rem',
           }}
         >
           {splitChars(content.hero.name)}

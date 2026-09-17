@@ -107,7 +107,7 @@ export default function Contact({ visible }: ContactProps) {
             onMouseEnter={e => ((e.target as HTMLElement).style.color = 'var(--accent)')}
             onMouseLeave={e => ((e.target as HTMLElement).style.color = 'var(--text)')}
           >
-            LinkedIn
+            LinkedIn 
           </a>
           <a
             className="contact-item"

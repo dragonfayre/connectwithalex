@@ -9,9 +9,9 @@
   --panel: #2a2726;
   --text-muted: #a8a49f;
 
-  --font-display: 'Fraunces', serif;
+  --font-display: 'Fraunces', cursive;
   --font-body: 'Outfit', sans-serif;
-  --font-accent: 'Borel', cursive;
+  --font-accent: 'Borel', serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);

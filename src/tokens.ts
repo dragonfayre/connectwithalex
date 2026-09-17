@@ -9,7 +9,7 @@ export const colors = {
 }
 
 export const fontFamily = {
-  display: ['Fraunces', 'serif'],
+  display: ['Borel', 'serif'],
   body: ['Outfit', 'sans-serif'],
   accent: ['Borel', 'cursive'],
 }

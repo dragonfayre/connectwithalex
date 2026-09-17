@@ -1,33 +1,34 @@
 export const content = {
   hero: {
-    name: '[Full Name]',
-    role: '[Target Role]',
-    location: '[City, Country]',
-    email: '[email@example.com]',
-    linkedin: 'https://linkedin.com/in/[handle]',
-    github: 'https://github.com/[handle]',
+    name: 'alexander liu',
+    role: 'dragonfayre',
+    location: 'UNSW Security Society - Conferences',
+    email: 'alexl@unswsecurity.com',
+    linkedin: 'https://linkedin.com/in/alexanderkangshao',
+    github: 'https://github.com/dragonfayre',
   },
 
   about: {
-    bio: '[Placeholder bio paragraph — describe who you are, what you care about, and what drives your work.]',
+    bio: 'Nice to meet you, My name is Alex! I am currently in my first year of Bachelor of Cybersecurity, and Conferences Subcomittee for SecSoc 2026 :)',
   },
 
   experience: [
     {
-      company: '[Company Name]',
-      role: '[Job Title]',
-      period: '[Start Year] – [End Year]',
+      company: 'Diversity & Inclusion for all (+ being a Discord Mod)',
+      role: 'GEDI Officer',
+      period: 'First Preference',
       outcomes: [
-        '[Placeholder outcome — lead with impact, quantify where possible.]',
-        '[Placeholder outcome — lead with impact, quantify where possible.]',
+        'Basically, I want to keep SecSoc a happy space for everyone :3',
+        'errrrr... yeh ',
       ],
     },
     {
-      company: '[Company Name]',
-      role: '[Job Title]',
-      period: '[Start Year] – [End Year]',
+      company: 'Connecting SecSoc with the worlddd (but maybe uni first..)',
+      role: 'Vice President - Externals',
+      period: 'Second Preference',
       outcomes: [
-        '[Placeholder outcome — lead with impact, quantify where possible.]',
+        'Lowkey just want to keep Arc & SecEdu happy so that we can do all the cool',
+        'shi AHEM i mean stuff. I GOT YALL frrrr'
       ],
     },
   ],
@@ -39,9 +40,9 @@ export const content = {
   },
 
   contact: {
-    line: '[Placeholder outreach line — e.g. "Open to new opportunities. Say hello."]',
-    email: '[email@example.com]',
-    linkedin: 'https://linkedin.com/in/[handle]',
-    github: 'https://github.com/[handle]',
+    line: 'Connect with me & say hi!',
+    email: 'alexl@unswsecurity.com',
+    linkedin: 'https://linkedin.com/in/alexanderkangshao',
+    github: 'https://github.com/dragonfayre',
   },
 }
