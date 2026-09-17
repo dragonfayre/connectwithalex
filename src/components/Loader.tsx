@@ -10,6 +10,8 @@ export default function Loader({ onComplete }: LoaderProps) {
   const smileyRef = useRef<HTMLDivElement>(null)
   const drawInRef = useRef<HTMLSpanElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const onCompleteRef = useRef(onComplete)
+  onCompleteRef.current = onComplete
 
   useEffect(() => {
     const dot = dotRef.current
@@ -20,7 +22,7 @@ export default function Loader({ onComplete }: LoaderProps) {
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) {
-      onComplete()
+      onCompleteRef.current()
       return
     }
 
@@ -60,7 +62,7 @@ export default function Loader({ onComplete }: LoaderProps) {
                   duration: 500,
                   delay: 300,
                   easing: 'cubicBezier(0.7, 0, 0.84, 0)',
-                  complete: onComplete,
+                  complete: onCompleteRef.current,
                 })
               },
             })
@@ -68,7 +70,7 @@ export default function Loader({ onComplete }: LoaderProps) {
         })
       },
     })
-  }, [onComplete])
+  }, [])
 
   return (
     <div

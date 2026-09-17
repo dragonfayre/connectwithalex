@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { animate } from 'animejs'
 import EditorialGrid from './components/EditorialGrid'
 import Loader from './components/Loader'
@@ -14,6 +14,7 @@ const SECTIONS = ['hero', 'about', 'rolepreferences', 'experiences', 'skills', '
 
 export default function App() {
   const [loaderDone, setLoaderDone] = useState(false)
+  const handleLoaderComplete = useCallback(() => setLoaderDone(true), [])
   const current = usePaging(loaderDone ? SECTIONS.length : 0)
   const sectionRef = useRef<HTMLDivElement>(null)
   const prevSection = useRef(0)
@@ -37,7 +38,7 @@ export default function App() {
 
   return (
     <div style={{ overflow: 'hidden', height: '100vh', backgroundColor: 'var(--bg)' }}>
-      {!loaderDone && <Loader onComplete={() => setLoaderDone(true)} />}
+      {!loaderDone && <Loader onComplete={handleLoaderComplete} />}
 
       {loaderDone && (
         <div ref={sectionRef} style={{ height: '100vh' }}>
