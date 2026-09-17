@@ -34,7 +34,7 @@ export default function Loader({ onComplete }: LoaderProps) {
         opacity: [0, 1],
         duration: 400,
         easing: 'cubicBezier(0.16, 1, 0.3, 1)',
-      }).finished
+      })
 
       // swap dot → smiley
       dot.style.opacity = '0'
@@ -48,7 +48,7 @@ export default function Loader({ onComplete }: LoaderProps) {
         duration: 350,
         delay: 500,
         easing: 'cubicBezier(0.7, 0, 0.84, 0)',
-      }).finished
+      })
 
       // Phase 3: Borel draw-in
       drawIn.style.opacity = '1'
@@ -59,7 +59,7 @@ export default function Loader({ onComplete }: LoaderProps) {
         duration: 600,
         delay: stagger(60),
         easing: 'cubicBezier(0.16, 1, 0.3, 1)',
-      }).finished
+      })
 
       // Phase 4: fade out loader
       await animate(container, {
@@ -67,7 +67,7 @@ export default function Loader({ onComplete }: LoaderProps) {
         duration: 500,
         delay: 300,
         easing: 'cubicBezier(0.7, 0, 0.84, 0)',
-      }).finished
+      })
 
       onComplete()
     })()
