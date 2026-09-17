@@ -1,0 +1,107 @@
+Requirements:
+
+PROJECT: About me Single-Page Site
+================================================
+
+TECH STACK
+----------
+- Framework: React + TypeScript, built with Vite
+- CSS framework: Tailwind CSS (utility classes + custom design tokens layered on top via tailwind.config)
+- Animation: Anime.js (latest/v4) — only animation dependency beyond React/Tailwind
+- Fonts: Google Fonts only
+- Output: Static site (deployable to Vercel/Netlify/GitHub Pages)
+
+FILE STRUCTURE
+--------------
+/index.html
+/tailwind.config.ts     -> maps design tokens (colors, type scale, spacing, easing) into Tailwind theme
+/src
+  /main.tsx              -> app entry
+  /App.tsx               -> top-level layout, mounts the single shared editorial grid + paging controller
+  /tokens.ts             -> colors, type scale, spacing, easing/duration values (single source of truth, feeds tailwind.config)
+  /content.ts            -> all copy: name, bio, experience entries, skills, contact info (placeholders — left for user to fill in)
+  /components
+    /EditorialGrid.tsx    -> the ONE shared Swiss editorial grid element; all sections render inside it, not each with their own grid
+    /Loader.tsx           -> intro animation sequence
+    /Hero.tsx             -> hero section + typography draw-in handoff
+    /About.tsx
+    /Experience.tsx       -> resume-style entries, one at a time via paging
+    /Skills.tsx           -> grouped structured list
+    /Contact.tsx          -> email, LinkedIn, GitHub placeholders
+  /hooks
+    /usePaging.ts          -> scroll-hijack/carousel controller (wheel/touch/keyboard + cooldown)
+  /styles
+    /tokens.css            -> CSS custom properties generated from tokens.ts, consumed by Tailwind + Anime.js
+
+DESIGN TOKENS (to finalize in tokens.ts/tokens.css)
+----------------------------------------------------
+Colors:
+  --bg: #1f1d1c
+  --text: #ffffff
+  --primary: #c65252      (brick red)
+  --secondary: #504e75    (dusty violet)
+  --accent: #7f82e0       (periwinkle)
+  --panel: #2a2726        (lifted panel tone, new)
+  --text-muted: #a8a49f   (secondary/meta text, new)
+
+Typography:
+  - Display face: Fraunces (sans-leaning cuts) — headlines/section titles
+  - Body face: Outfit — body/meta text
+  - Accent face: Borel — used only for the handwritten-style draw-in moment in the
+    loader/hero animation (not for body copy or headlines)
+  - NO tracked-out ALL-CAPS eyebrows
+  - NO 01/02/03 numbering unless sections are genuinely sequential
+  - NO middot-joined meta strings
+
+Layout:
+  - ONE shared Swiss editorial grid (EditorialGrid.tsx), asymmetric, off-center
+  - All sections (Hero/About/Experience/Skills/Contact) render as content inside
+    this single grid element — not separate grids per section
+  - Each section is still a full-viewport "page" for paging purposes, but shares
+    the same underlying grid structure/column lines for visual consistency
+  - Skills = structured list (NOT pill/badge cloud)
+  - No cards, shadows, or glassmorphism anywhere
+
+BUILD STEPS
+-----------
+1. Scaffold Vite + React + TypeScript project; install and configure Tailwind CSS
+2. Set up tokens.ts with full palette, type scale, spacing, easing values; wire into tailwind.config.ts
+3. Set up content.ts with placeholder copy, left for user to fill in later
+4. Build EditorialGrid.tsx — the single shared Swiss editorial grid component
+   that header section mounts its content into (asymmetric, off-center columns)
+5. Build Loader.tsx:
+   - 3 dots morphs into smiley
+   - center dot drops down to become mouth
+   - smiley "blips out" with retro CRT effect
+   - typography draws in using Borel (handwritten-style accent)
+   - treat as ONE continuous loader-to-hero handoff (single choreographed moment)
+6. Build Hero.tsx:
+   - Name/title drawn in via typography animation
+   - Metadata (location, email, LinkedIn, GitHub) anchored to grid line, not centered
+7. Build usePaging.ts hook:
+   - Listen to wheel / touchstart / touchend / keyboard (arrow keys, space)
+   - Lock scroll, advance one section per intentional gesture
+   - Add cooldown/debounce so trackpad inertia doesn't skip pages
+   - Fallback to normal scroll behavior when prefers-reduced-motion is set
+8. Build section components (all rendering inside EditorialGrid):
+   - About.tsx: two-column asymmetric split
+   - Experience.tsx (renamed from "Selected work"): one entry at a time, paged, text-only
+   - Skills.tsx: grouped structured list (Languages / Tools & Platforms / Focus areas)
+   - Contact.tsx: minimal, direct — mailto link, LinkedIn placeholder, GitHub placeholder
+9. Wire up motion: one choreographed moment per section transition (no decorative motion elsewhere)
+10. Test: prefers-reduced-motion fallback, keyboard nav, touch/trackpad paging edge cases
+11. Build for production, verify static deploy on target host (Vercel/Netlify/GitHub Pages)
+
+CONTENT (left entirely as placeholder in content.ts — fill in after build)
+----------------------------------------------------------------------------
+Hero: [Full Name] / [Target Role]
+Hero metadata: [City, Country] / [email] / [LinkedIn placeholder] / [GitHub placeholder]
+About: [placeholder bio paragraph]
+Experience: [placeholder job entries, resume-style outcomes]
+Skills: [placeholder grouped list — Languages / Tools & platforms / Focus areas]
+Contact: [placeholder outreach line] / [email] / [LinkedIn placeholder] / [GitHub placeholder]
+(No résumé download link — removed per direction)
+
+OPEN DECISIONS
+--------------
+- Fonts locked: Fraunces (display), Outfit (body), Borel (loader/hero draw-in accent only)
